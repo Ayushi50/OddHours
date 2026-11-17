@@ -33,16 +33,6 @@
     if (e.target.closest('a')) setMenu(false);
   });
 
-  /* ---------- Vibe switcher (whole-site palettes) ---------- */
-  var vibeBtns = document.querySelectorAll('.vibe-btn');
-  function setVibe(v, save) {
-    root.setAttribute('data-vibe', v);
-    vibeBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.vibe === v)); });
-    if (save) { try { localStorage.setItem('oddhours-vibe', v); } catch (e) {} }
-  }
-  vibeBtns.forEach(function (b) { b.addEventListener('click', function () { setVibe(b.dataset.vibe, true); }); });
-  setVibe(root.getAttribute('data-vibe') || 'forest', false);
-
   /* ---------- Scroll progress line ---------- */
   var progBar = document.querySelector('.progress i');
   function updateProgress() {

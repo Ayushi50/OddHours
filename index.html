@@ -12,7 +12,6 @@
   <script>
     // Apply a saved theme before paint to avoid a flash.
     try { var t = localStorage.getItem('oddhours-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
-    try { var v = localStorage.getItem('oddhours-vibe'); if (['forest','deepsea','ember','merlot'].indexOf(v) > -1) document.documentElement.setAttribute('data-vibe', v); } catch (e) {}
     document.documentElement.classList.add('js');
   </script>
 </head>
@@ -346,14 +345,6 @@
       <p class="muted">© 2026 OddHours · <span class="hand">made with care</span></p>
     </div>
   </footer>
-
-  <div class="vibe" role="group" aria-label="Try a colour vibe">
-    <span class="vibe-label">try a vibe</span>
-    <button type="button" class="vibe-btn" data-vibe="forest" aria-label="Forest" aria-pressed="true" style="--s1:#C6F24E;--s2:#0A1510"></button>
-    <button type="button" class="vibe-btn" data-vibe="deepsea" aria-label="Deep sea" aria-pressed="false" style="--s1:#3DD6F5;--s2:#07111F"></button>
-    <button type="button" class="vibe-btn" data-vibe="ember" aria-label="Ember" aria-pressed="false" style="--s1:#FFB020;--s2:#14110D"></button>
-    <button type="button" class="vibe-btn" data-vibe="merlot" aria-label="Merlot" aria-pressed="false" style="--s1:#FF6B81;--s2:#150A0E"></button>
-  </div>
 
   <script src="script.js"></script>
 </body>
