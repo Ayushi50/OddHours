@@ -131,8 +131,27 @@
       firstBad.focus();
       return;
     }
+    // No backend yet: open the visitor's email app with the message pre-filled.
+    var chip = form.querySelector('input[name="service"]:checked');
+    var service = chip ? chip.value : 'Not specified';
+    var subject = 'New project enquiry: ' + service;
+    var body = 'Name: ' + document.getElementById('f-name').value.trim() +
+      '\nEmail: ' + document.getElementById('f-email').value.trim() +
+      '\nNeeds: ' + service +
+      '\n\n' + document.getElementById('f-msg').value.trim();
+    window.location.href = 'mailto:ayushipandey316@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     status.className = 'form-status ok';
-    status.textContent = 'Thanks! We got your message and will be in touch soon.';
-    form.reset();
+    status.textContent = 'Opening your email app. If nothing opens, email us directly at ayushipandey316@gmail.com.';
   });
+
+  /* ---------- "Start a project" (nav): jump to the form and put the cursor in it ---------- */
+  var startBtn = document.querySelector('.nav-actions .btn');
+  if (startBtn) {
+    startBtn.addEventListener('click', function () {
+      setTimeout(function () {
+        var first = document.getElementById('f-name');
+        if (first) first.focus({ preventScroll: true });
+      }, reduceMotion ? 0 : 700);
+    });
+  }
 })();
