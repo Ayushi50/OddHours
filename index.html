@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OddHours — Websites, Logos &amp; Branding</title>
+  <meta name="description" content="OddHours is a small freelance design studio making websites, logos and branding for small businesses, startups and individuals.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    // Apply a saved theme before paint to avoid a flash.
+    try { var t = localStorage.getItem('oddhours-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+    document.documentElement.classList.add('js');
+  </script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- 1. Navigation -->
+  <header class="nav">
+    <div class="nav-in">
+      <a href="#top" class="wordmark" aria-label="OddHours home">
+        <span class="dot" aria-hidden="true"></span>OddHours
+      </a>
+      <nav aria-label="Main">
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <a href="#contact" class="btn btn-sm">Start a project</a>
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Switch to light mode">
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+        </button>
+        <button type="button" class="icon-btn menu-btn" id="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- 2. Hero -->
+    <section class="hero" id="top">
+      <div class="in hero-in">
+        <p class="eyebrow reveal">Freelance design studio</p>
+        <h1 class="h1 reveal">What do you need made?</h1>
+
+        <div class="picker reveal">
+          <div class="search" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <span class="typed"><span id="typed-text">I need a website for my business…</span><span class="caret"></span></span>
+          </div>
+
+          <div class="picker-body">
+            <div class="picker-list">
+              <p class="label">Services</p>
+              <ul role="list">
+                <li><button type="button" class="svc-opt" data-index="0" aria-pressed="true" aria-controls="preview">
+                  <span class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18"/></svg></span>
+                  <span><strong>Website creation</strong><small>Landing pages, portfolios, small-business sites</small></span>
+                  <span class="enter" aria-hidden="true">↵</span>
+                </button></li>
+                <li><button type="button" class="svc-opt" data-index="1" aria-pressed="false" aria-controls="preview">
+                  <span class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="4"/><circle cx="16" cy="9" r="4"/><circle cx="12" cy="16" r="4"/></svg></span>
+                  <span><strong>Branding</strong><small>Colour, type, voice and guidelines</small></span>
+                  <span class="enter" aria-hidden="true">↵</span>
+                </button></li>
+                <li><button type="button" class="svc-opt" data-index="2" aria-pressed="false" aria-controls="preview">
+                  <span class="svc-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 21 20H3Z"/></svg></span>
+                  <span><strong>Logo design</strong><small>One strong mark, every file type</small></span>
+                  <span class="enter" aria-hidden="true">↵</span>
+                </button></li>
+              </ul>
+            </div>
+
+            <div class="preview" id="preview" aria-live="polite">
+              <div class="preview-art" aria-hidden="true" id="preview-art"></div>
+              <h2 class="preview-title" id="preview-title">Website creation</h2>
+              <p class="preview-text" id="preview-text">Custom, mobile-first websites that are fast and easy to update.</p>
+              <p class="preview-price">Pricing: coming soon</p>
+              <a href="#contact" class="btn" id="preview-cta" data-service="Website">Start this project <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Marquee -->
+    <div class="marquee" aria-label="Websites, Branding, Logos">
+      <div class="mq" aria-hidden="true">
+        <span>Websites ✦ Branding ✦ Logos ✦ Websites ✦ Branding ✦ Logos ✦&nbsp;</span>
+        <span>Websites ✦ Branding ✦ Logos ✦ Websites ✦ Branding ✦ Logos ✦&nbsp;</span>
+      </div>
+    </div>
+
+    <!-- 4. Services -->
+    <section class="sec" id="services">
+      <div class="in">
+        <p class="eyebrow reveal">Services</p>
+        <h2 class="h2 reveal">Three things, done properly.</h2>
+        <div class="grid g3">
+          <article class="card svc reveal">
+            <span class="svc-ico lg" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18"/></svg></span>
+            <h3>Website creation</h3>
+            <p>Custom, mobile-first websites — landing pages, portfolios and small-business sites — that load fast and are easy to update.</p>
+            <div class="card-foot">
+              <span class="muted">Pricing on request</span>
+              <a href="#contact" class="link" data-service="Website">Get a quote <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+          <article class="card svc reveal">
+            <span class="svc-ico lg" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 21 20H3Z"/></svg></span>
+            <h3>Logo design</h3>
+            <p>One distinctive mark that works everywhere, delivered in every file format you need.</p>
+            <div class="card-foot">
+              <span class="muted">Pricing on request</span>
+              <a href="#contact" class="link" data-service="Logo">Get a quote <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+          <article class="card svc reveal">
+            <span class="svc-ico lg" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="4"/><circle cx="16" cy="9" r="4"/><circle cx="12" cy="16" r="4"/></svg></span>
+            <h3>Branding</h3>
+            <p>Colours, typography, voice and simple brand guidelines, so everything you put out feels consistent.</p>
+            <div class="card-foot">
+              <span class="muted">Pricing on request</span>
+              <a href="#contact" class="link" data-service="Branding">Get a quote <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Work -->
+    <section class="sec" id="work">
+      <div class="in">
+        <div class="sec-head">
+          <div>
+            <p class="eyebrow reveal">Work</p>
+            <h2 class="h2 reveal">Recent projects.</h2>
+          </div>
+          <a href="#contact" class="link reveal">Want to be next? <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="grid work-grid">
+          <a href="#" class="work wide reveal" aria-label="[Project name], website, [YEAR]">
+            <div class="work-art art-a" aria-hidden="true"><span>[Project image]</span></div>
+            <div class="work-meta"><strong>[Project name]</strong><span>[WEBSITE] · [YEAR]</span></div>
+          </a>
+          <a href="#" class="work reveal" aria-label="[Project name], logo, [YEAR]">
+            <div class="work-art art-b" aria-hidden="true"><span>[Project image]</span></div>
+            <div class="work-meta"><strong>[Project name]</strong><span>[LOGO] · [YEAR]</span></div>
+          </a>
+          <a href="#" class="work reveal" aria-label="[Project name], branding, [YEAR]">
+            <div class="work-art art-c" aria-hidden="true"><span>[Project image]</span></div>
+            <div class="work-meta"><strong>[Project name]</strong><span>[BRANDING] · [YEAR]</span></div>
+          </a>
+          <a href="#" class="work wide reveal" aria-label="[Project name], [CATEGORY], [YEAR]">
+            <div class="work-art art-d" aria-hidden="true"><span>[Project image]</span></div>
+            <div class="work-meta"><strong>[Project name]</strong><span>[CATEGORY] · [YEAR]</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. How it works -->
+    <section class="sec" id="process">
+      <div class="in">
+        <p class="eyebrow reveal">How it works</p>
+        <h2 class="h2 reveal">Simple from start to finish.</h2>
+        <ol class="grid g4 steps" role="list">
+          <li class="card step reveal"><span class="num">01</span><h3>Brief</h3><p>You tell us what you need. We agree scope and price.</p></li>
+          <li class="card step reveal"><span class="num">02</span><h3>Design</h3><p>We create the first concepts.</p></li>
+          <li class="card step reveal"><span class="num">03</span><h3>Refine</h3><p>You give feedback. We polish it.</p></li>
+          <li class="card step reveal"><span class="num">04</span><h3>Handover</h3><p>You get final files and a live site you own.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 7. Contact -->
+    <section class="sec" id="contact">
+      <div class="in contact">
+        <div class="contact-copy">
+          <p class="eyebrow reveal">Contact</p>
+          <h2 class="h2 reveal">Have a project in mind?</h2>
+          <p class="lead reveal">Tell us what you need and we'll get back to you with next steps.</p>
+          <p class="reveal"><span class="label">Email</span><br><a class="mail" href="mailto:[YOUR EMAIL]">[YOUR EMAIL]</a></p>
+        </div>
+
+        <form class="card form reveal" id="contact-form" novalidate>
+          <fieldset class="chips">
+            <legend>What do you need?</legend>
+            <label class="chip"><input type="radio" name="service" value="Website"><span>Website</span></label>
+            <label class="chip"><input type="radio" name="service" value="Logo"><span>Logo</span></label>
+            <label class="chip"><input type="radio" name="service" value="Branding"><span>Branding</span></label>
+            <label class="chip"><input type="radio" name="service" value="Not sure yet"><span>Not sure yet</span></label>
+          </fieldset>
+          <div class="row2">
+            <div class="field">
+              <label for="f-name">Name</label>
+              <input class="fld" id="f-name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+            </div>
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input class="fld" id="f-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-msg">Message</label>
+            <textarea class="fld" id="f-msg" name="message" rows="5" placeholder="Tell us a little about your project" required></textarea>
+          </div>
+          <p class="form-status" id="form-status" role="status"></p>
+          <button type="submit" class="btn">Send it over <span aria-hidden="true">→</span></button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- 8. Footer -->
+  <footer class="footer">
+    <div class="in footer-in">
+      <a href="#top" class="wordmark"><span class="dot" aria-hidden="true"></span>OddHours</a>
+      <nav aria-label="Footer">
+        <ul class="foot-links">
+          <li><a href="#services">Services</a></li>
+          <li><a href="#work">Work</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <p class="muted">© 2026 OddHours</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

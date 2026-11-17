@@ -1,0 +1,130 @@
+(function () {
+  'use strict';
+
+  var root = document.documentElement;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Theme toggle ---------- */
+  var themeBtn = document.getElementById('theme-toggle');
+  function syncThemeLabel() {
+    var dark = root.getAttribute('data-theme') !== 'light';
+    themeBtn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+  themeBtn.addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('oddhours-theme', next); } catch (e) {}
+    syncThemeLabel();
+  });
+  syncThemeLabel();
+
+  /* ---------- Mobile menu ---------- */
+  var menuBtn = document.getElementById('menu-toggle');
+  var navLinks = document.getElementById('nav-links');
+  function setMenu(open) {
+    navLinks.classList.toggle('open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+  menuBtn.addEventListener('click', function () {
+    setMenu(menuBtn.getAttribute('aria-expanded') !== 'true');
+  });
+  navLinks.addEventListener('click', function (e) {
+    if (e.target.closest('a')) setMenu(false);
+  });
+
+  /* ---------- Typing effect ---------- */
+  var phrases = [
+    'I need a website for my business…',
+    'I need a logo that feels like us…',
+    'I need a brand that stands out…'
+  ];
+  var typedEl = document.getElementById('typed-text');
+  if (!reduceMotion) {
+    var p = 0, i = 0, deleting = false;
+    typedEl.textContent = '';
+    (function tick() {
+      var phrase = phrases[p];
+      if (!deleting) {
+        i++;
+        typedEl.textContent = phrase.slice(0, i);
+        if (i === phrase.length) { deleting = true; return setTimeout(tick, 1800); }
+        return setTimeout(tick, 55);
+      }
+      i--;
+      typedEl.textContent = phrase.slice(0, i);
+      if (i === 0) { deleting = false; p = (p + 1) % phrases.length; return setTimeout(tick, 350); }
+      setTimeout(tick, 25);
+    })();
+  }
+
+  /* ---------- Hero service picker ---------- */
+  var services = [
+    { title: 'Website creation', text: 'Custom, mobile-first websites that are fast and easy to update.', chip: 'Website' },
+    { title: 'Branding', text: 'Colours, type, voice and guidelines so everything feels like one brand.', chip: 'Branding' },
+    { title: 'Logo design', text: 'One distinctive mark that works everywhere, in every file format you need.', chip: 'Logo' }
+  ];
+  var opts = document.querySelectorAll('.svc-opt');
+  var pTitle = document.getElementById('preview-title');
+  var pText = document.getElementById('preview-text');
+  var pArt = document.getElementById('preview-art');
+  var pCta = document.getElementById('preview-cta');
+  function select(idx) {
+    var s = services[idx];
+    opts.forEach(function (o) { o.setAttribute('aria-pressed', String(Number(o.dataset.index) === idx)); });
+    pTitle.textContent = s.title;
+    pText.textContent = s.text;
+    pArt.setAttribute('data-kind', String(idx));
+    pCta.setAttribute('data-service', s.chip);
+  }
+  opts.forEach(function (o) {
+    o.addEventListener('click', function () { select(Number(o.dataset.index)); });
+  });
+  select(0);
+
+  /* ---------- Preselect the contact chip from any "start / quote" link ---------- */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('[data-service]');
+    if (!a) return;
+    var input = document.querySelector('.chips input[value="' + a.getAttribute('data-service') + '"]');
+    if (input) input.checked = true;
+  });
+
+  /* ---------- Reveal on scroll ---------- */
+  var reveals = document.querySelectorAll('.reveal');
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    reveals.forEach(function (el) { el.classList.add('in-view'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in-view'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach(function (el) { io.observe(el); });
+  }
+
+  /* ---------- Contact form ---------- */
+  // NOTE: no backend yet. Connect this to a form service (e.g. Formspree, Netlify Forms)
+  // or your own endpoint, then replace the success message below with a real submit.
+  var form = document.getElementById('contact-form');
+  var status = document.getElementById('form-status');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var firstBad = null;
+    ['f-name', 'f-email', 'f-msg'].forEach(function (id) {
+      var f = document.getElementById(id);
+      var ok = f.checkValidity() && f.value.trim() !== '';
+      f.setAttribute('aria-invalid', ok ? 'false' : 'true');
+      if (!ok && !firstBad) firstBad = f;
+    });
+    if (firstBad) {
+      status.className = 'form-status err';
+      status.textContent = 'Please add your name, a valid email and a short message.';
+      firstBad.focus();
+      return;
+    }
+    status.className = 'form-status ok';
+    status.textContent = 'Thanks! We got your message and will be in touch soon.';
+    form.reset();
+  });
+})();
