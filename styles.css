@@ -433,6 +433,77 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
   .r1 { top: 26px; } .r2 { top: 68px; }
 }
 
+/* ===== Turnaround row on package cards ===== */
+.turn { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 14px; color: var(--mu); margin: 0; }
+.turn svg { width: 18px; height: 18px; color: var(--cox); flex: none; }
+.turn b { color: var(--tx); font-weight: 600; margin-left: auto; }
+
+/* ===== FAQ ===== */
+.faq { display: grid; grid-template-columns: .8fr 1.2fr; gap: 56px; align-items: start; }
+.faq-head { position: sticky; top: 100px; }
+.faq-list { display: flex; flex-direction: column; gap: 12px; }
+.faq-list details { background: var(--card); border: 1px solid var(--bd); border-radius: 20px; transition: border-color .25s ease, box-shadow .25s ease; }
+.faq-list details:hover { border-color: var(--acx); }
+.faq-list details[open] { border-color: var(--acx); box-shadow: var(--sh); }
+.faq-list summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 18px 22px; min-height: 60px; font-weight: 600; font-size: 17px;
+}
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary::after {
+  content: "+"; flex: none; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--sel); color: var(--acx); font-size: 22px; font-weight: 500; line-height: 1;
+  transition: transform .3s cubic-bezier(.3, 1.6, .5, 1), background .2s;
+}
+.faq-list details[open] summary::after { content: "×"; transform: rotate(90deg); background: var(--co); color: #1d0b04; }
+.faq-list summary:focus-visible { outline: 2px solid var(--acx); outline-offset: -2px; border-radius: 20px; }
+.ans { padding: 0 22px 20px; color: var(--mu); animation: ansIn .35s ease; }
+.ans p { margin: 0; }
+.ans ul { display: flex; flex-direction: column; gap: 8px; }
+.ans b { color: var(--tx); font-weight: 600; }
+@keyframes ansIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+
+/* ===== Floating WhatsApp button ===== */
+.wa-float {
+  position: fixed; right: 16px; bottom: 16px; z-index: 60;
+  display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 20px 0 14px;
+  background: #0B7A5F; color: #fff; border-radius: 999px; font-weight: 600; font-size: 15px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .35); transition: transform .25s ease, box-shadow .25s ease;
+}
+.wa-float:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 14px 32px rgba(0, 0, 0, .4); }
+.wa-float svg { width: 28px; height: 28px; fill: #fff; stroke: none; flex: none; }
+.wa-float:focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; }
+.wa-float::before {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; border: 2px solid #0B7A5F;
+  animation: ping 2.6s ease-out infinite; pointer-events: none;
+}
+@keyframes ping { 0% { transform: scale(1); opacity: .7; } 70%, 100% { transform: scale(1.35, 1.6); opacity: 0; } }
+
+/* ===== Form states ===== */
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.err { color: #E5484D; font-size: 13px; margin-top: 6px; min-height: 0; }
+.err:empty { display: none; }
+[data-theme="dark"] .err { color: #FF8A8A; }
+.privacy { margin: -6px 0 0; font-size: 13px; color: var(--mu); }
+.btn[disabled] { opacity: .65; cursor: progress; transform: none; }
+.form-done { text-align: center; padding: 28px 8px; display: none; }
+.form-done h3 { font-size: 28px; font-weight: 800; letter-spacing: -.8px; margin-bottom: 8px; }
+.form-done p { color: var(--mu); }
+.form.sent .form-done { display: block; }
+.form.sent > :not(.form-done) { display: none; }
+
+@media (max-width: 1000px) {
+  .faq { grid-template-columns: 1fr; gap: 32px; }
+  .faq-head { position: static; }
+}
+@media (max-width: 680px) {
+  .wa-float { right: 12px; bottom: 12px; padding: 0; width: 58px; justify-content: center; }
+  .wa-float span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .faq-list summary { font-size: 16px; padding: 14px 16px; }
+  .ans { padding: 0 16px 16px; }
+}
+@media (prefers-reduced-motion: reduce) { .wa-float::before { display: none; } }
+
 /* ===== Reveal on scroll ===== */
 .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); }
 .js .reveal.in-view { opacity: 1; transform: none; }

@@ -1,6 +1,15 @@
 (function () {
   'use strict';
 
+  /* ===== SETTINGS: fill these in before launch ===== */
+  var CONFIG = {
+    // WhatsApp number with country code, digits only. Example for India: '919876543210'. Leave '' to hide the chat link behaviour.
+    whatsappNumber: '',
+    // Form service URL, e.g. 'https://formspree.io/f/xxxxxxxx'. Leave '' to fall back to opening the visitor's email app.
+    formEndpoint: '',
+    email: 'ayushipandey316@gmail.com'
+  };
+
   var root = document.documentElement;
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -31,6 +40,14 @@
   });
   navLinks.addEventListener('click', function (e) {
     if (e.target.closest('a')) setMenu(false);
+  });
+
+  /* ---------- WhatsApp links ---------- */
+  var waHref = CONFIG.whatsappNumber
+    ? 'https://wa.me/' + CONFIG.whatsappNumber.replace(/\D/g, '') + '?text=' + encodeURIComponent("Hi OddHours! I'd like to start a project.")
+    : null;
+  document.querySelectorAll('.wa-link').forEach(function (a) {
+    if (waHref) { a.setAttribute('href', waHref); a.setAttribute('target', '_blank'); a.setAttribute('rel', 'noopener'); }
   });
 
   /* ---------- Scroll progress line ---------- */
@@ -113,7 +130,7 @@
 
   /* ---------- Hero service picker ---------- */
   var services = [
-    { title: 'Website creation', text: 'Custom, mobile-first websites that are fast and easy to update.', chip: 'Website', price: 'Packages from Rs. 3,000' },
+    { title: 'Website creation', text: 'Custom, mobile-first websites that are fast and easy to update.', chip: 'Website', price: 'Packages from ₹3,000' },
     { title: 'Branding', text: 'Colours, type, voice and guidelines so everything feels like one brand.', chip: 'Branding', price: 'Pricing: coming soon' },
     { title: 'Logo design', text: 'One distinctive mark that works everywhere, in every file format you need.', chip: 'Logo', price: 'Pricing: coming soon' }
   ];
@@ -166,37 +183,80 @@
   }
 
   /* ---------- Contact form ---------- */
-  // NOTE: no backend yet. Connect this to a form service (e.g. Formspree, Netlify Forms)
-  // or your own endpoint, then replace the success message below with a real submit.
   var form = document.getElementById('contact-form');
   var status = document.getElementById('form-status');
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
+  var sendBtn = document.getElementById('send-btn');
+  var sendLabel = sendBtn.querySelector('.btn-label');
+  var rules = [
+    { id: 'f-name', err: 'e-name', msg: 'Please tell us your name.' },
+    { id: 'f-email', err: 'e-email', msg: 'Please enter a valid email address.' },
+    { id: 'f-msg', err: 'e-msg', msg: 'Please add a short message.' }
+  ];
+
+  function validate() {
     var firstBad = null;
-    ['f-name', 'f-email', 'f-msg'].forEach(function (id) {
-      var f = document.getElementById(id);
+    rules.forEach(function (r) {
+      var f = document.getElementById(r.id), e = document.getElementById(r.err);
       var ok = f.checkValidity() && f.value.trim() !== '';
       f.setAttribute('aria-invalid', ok ? 'false' : 'true');
+      e.textContent = ok ? '' : r.msg;
       if (!ok && !firstBad) firstBad = f;
     });
-    if (firstBad) {
-      status.className = 'form-status err';
-      status.textContent = 'Please add your name, a valid email and a short message.';
-      firstBad.focus();
-      return;
-    }
-    // No backend yet: open the visitor's email app with the message pre-filled.
+    return firstBad;
+  }
+  rules.forEach(function (r) {
+    document.getElementById(r.id).addEventListener('input', function () {
+      this.setAttribute('aria-invalid', 'false'); document.getElementById(r.err).textContent = '';
+    });
+  });
+
+  function showDone() {
+    confetti(sendBtn);
+    form.classList.add('sent');
+    var done = form.querySelector('.form-done');
+    if (done) done.focus({ preventScroll: true });
+  }
+  function showError(msg) {
+    status.className = 'form-status err';
+    status.textContent = msg;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    status.textContent = ''; status.className = 'form-status';
+
+    // Spam trap: real visitors never fill this in.
+    if (form.querySelector('[name="_gotcha"]').value) { showDone(); return; }
+
+    var firstBad = validate();
+    if (firstBad) { showError('Please fix the highlighted fields.'); firstBad.focus(); return; }
+
     var chip = form.querySelector('input[name="service"]:checked');
     var service = chip ? chip.value : 'Not specified';
+    var name = document.getElementById('f-name').value.trim();
+    var email = document.getElementById('f-email').value.trim();
+    var message = document.getElementById('f-msg').value.trim();
+
+    if (CONFIG.formEndpoint) {
+      // Real submission to your form service (Formspree, Getform, Basin, etc.).
+      sendBtn.disabled = true; sendLabel.textContent = 'Sending…';
+      var data = new FormData();
+      data.append('name', name); data.append('email', email); data.append('service', service); data.append('message', message);
+      data.append('_subject', 'New project enquiry: ' + service);
+      fetch(CONFIG.formEndpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+        .then(function (res) { if (!res.ok) throw new Error('bad status'); showDone(); })
+        .catch(function () { showError('Sorry, that did not send. Please try again, or email us at ' + CONFIG.email + '.'); })
+        .then(function () { sendBtn.disabled = false; sendLabel.textContent = 'Send it over'; });
+      return;
+    }
+
+    // No form service connected yet: open the visitor's email app with the message pre-filled.
     var subject = 'New project enquiry: ' + service;
-    var body = 'Name: ' + document.getElementById('f-name').value.trim() +
-      '\nEmail: ' + document.getElementById('f-email').value.trim() +
-      '\nNeeds: ' + service +
-      '\n\n' + document.getElementById('f-msg').value.trim();
-    window.location.href = 'mailto:ayushipandey316@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-    confetti(form.querySelector('.btn'));
+    var body = 'Name: ' + name + '\nEmail: ' + email + '\nNeeds: ' + service + '\n\n' + message;
+    window.location.href = 'mailto:' + CONFIG.email + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    confetti(sendBtn);
     status.className = 'form-status ok';
-    status.textContent = 'Opening your email app. If nothing opens, email us directly at ayushipandey316@gmail.com.';
+    status.textContent = 'Opening your email app. If nothing opens, email us directly at ' + CONFIG.email + '.';
   });
 
   /* ---------- "Start a project" (nav): jump to the form and put the cursor in it ---------- */
