@@ -33,6 +33,69 @@
     if (e.target.closest('a')) setMenu(false);
   });
 
+  /* ---------- Vibe switcher (whole-site palettes) ---------- */
+  var vibeBtns = document.querySelectorAll('.vibe-btn');
+  function setVibe(v, save) {
+    root.setAttribute('data-vibe', v);
+    vibeBtns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.vibe === v)); });
+    if (save) { try { localStorage.setItem('oddhours-vibe', v); } catch (e) {} }
+  }
+  vibeBtns.forEach(function (b) { b.addEventListener('click', function () { setVibe(b.dataset.vibe, true); }); });
+  setVibe(root.getAttribute('data-vibe') || 'forest', false);
+
+  /* ---------- Scroll progress line ---------- */
+  var progBar = document.querySelector('.progress i');
+  function updateProgress() {
+    var d = document.documentElement;
+    var max = d.scrollHeight - d.clientHeight;
+    progBar.style.transform = 'scaleX(' + (max > 0 ? d.scrollTop / max : 0) + ')';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  /* ---------- Logo: clock hands spin when clicked ---------- */
+  document.querySelectorAll('.wordmark').forEach(function (w) {
+    w.addEventListener('click', function () {
+      if (reduceMotion) return;
+      w.classList.remove('spin'); void w.offsetWidth; w.classList.add('spin');
+    });
+  });
+
+  /* ---------- Hero collage follows the mouse ---------- */
+  var collage = document.getElementById('collage');
+  var heroEl = document.querySelector('.hero');
+  if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
+    heroEl.addEventListener('pointermove', function (e) {
+      var r = heroEl.getBoundingClientRect();
+      collage.style.setProperty('--mx', (((e.clientX - r.left) / r.width) - .5) * 2);
+      collage.style.setProperty('--my', (((e.clientY - r.top) / r.height) - .5) * 2);
+    });
+    heroEl.addEventListener('pointerleave', function () {
+      collage.style.setProperty('--mx', 0); collage.style.setProperty('--my', 0);
+    });
+  }
+
+  /* ---------- Confetti burst (used when a message is sent) ---------- */
+  function confetti(fromEl) {
+    if (reduceMotion || !fromEl.animate) return;
+    var r = fromEl.getBoundingClientRect();
+    var colors = ['var(--ac)', 'var(--co)', 'var(--sun)'];
+    for (var i = 0; i < 18; i++) {
+      var s = document.createElement('span');
+      s.className = 'confetti';
+      s.style.background = colors[i % 3];
+      s.style.left = (r.left + r.width / 2 - 7) + 'px';
+      s.style.top = (r.top + r.height / 2 - 7) + 'px';
+      document.body.appendChild(s);
+      var ang = Math.random() * Math.PI * 2, dist = 70 + Math.random() * 120;
+      var a = s.animate([
+        { transform: 'translate(0,0) scale(1) rotate(0deg)', opacity: 1 },
+        { transform: 'translate(' + Math.cos(ang) * dist + 'px,' + (Math.sin(ang) * dist + 40) + 'px) scale(.3) rotate(' + (Math.random() * 360) + 'deg)', opacity: 0 }
+      ], { duration: 900 + Math.random() * 400, easing: 'cubic-bezier(.2,.8,.3,1)' });
+      a.onfinish = (function (el) { return function () { el.remove(); }; })(s);
+    }
+  }
+
   /* ---------- Typing effect ---------- */
   var phrases = [
     'I need a website for my business…',
@@ -77,6 +140,7 @@
     pText.textContent = s.text;
     pPrice.textContent = s.price;
     pArt.setAttribute('data-kind', String(idx));
+    collage.setAttribute('data-focus', ['site', 'brand', 'logo'][idx]);
     pCta.setAttribute('data-service', s.chip);
   }
   opts.forEach(function (o) {
@@ -140,6 +204,7 @@
       '\nNeeds: ' + service +
       '\n\n' + document.getElementById('f-msg').value.trim();
     window.location.href = 'mailto:ayushipandey316@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    confetti(form.querySelector('.btn'));
     status.className = 'form-status ok';
     status.textContent = 'Opening your email app. If nothing opens, email us directly at ayushipandey316@gmail.com.';
   });

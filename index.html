@@ -12,11 +12,13 @@
   <script>
     // Apply a saved theme before paint to avoid a flash.
     try { var t = localStorage.getItem('oddhours-theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+    try { var v = localStorage.getItem('oddhours-vibe'); if (['forest','deepsea','ember','merlot'].indexOf(v) > -1) document.documentElement.setAttribute('data-vibe', v); } catch (e) {}
     document.documentElement.classList.add('js');
   </script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
+  <div class="progress" aria-hidden="true"><i></i></div>
 
   <!-- 1. Navigation -->
   <header class="nav">
@@ -52,7 +54,7 @@
         <p class="eyebrow reveal">Freelance design studio</p>
         <h1 class="h1 reveal">What do you need <span class="scrib">made?</span></h1>
 
-        <div class="collage reveal" aria-hidden="true">
+        <div class="collage reveal" id="collage" data-focus="site" aria-hidden="true">
           <div class="mk mk-site">
             <div class="mk-bar"><i></i><i></i><i></i><span></span></div>
             <div class="mk-body">
@@ -68,7 +70,7 @@
           </div>
           <div class="mk mk-brand">
             <div class="mk-aa">Aa</div>
-            <div class="sw"><i style="background:#0A1510"></i><i style="background:#C6F24E"></i><i style="background:#FF7A59"></i><i style="background:#FFD84D"></i><i style="background:#EFF7EA"></i></div>
+            <div class="sw"><i style="background:var(--bg)"></i><i style="background:var(--ac)"></i><i style="background:var(--co)"></i><i style="background:var(--sun)"></i><i style="background:var(--tx)"></i></div>
             <span class="note">brand kit</span>
           </div>
           <span class="start">start here
@@ -116,12 +118,24 @@
       </div>
     </section>
 
-    <!-- 3. Marquee -->
-    <div class="marquee" aria-label="Websites, Branding, Logos">
-      <div class="mq" aria-hidden="true">
+    <!-- 3. Ribbons -->
+    <div class="ribbons" role="img" aria-label="Websites, branding, logos. Tell us your idea, we sketch it, you love it.">
+      <div class="ribbon r1"><div class="mq" aria-hidden="true">
         <span>Websites ✦ Branding ✦ Logos ✦ Websites ✦ Branding ✦ Logos ✦&nbsp;</span>
         <span>Websites ✦ Branding ✦ Logos ✦ Websites ✦ Branding ✦ Logos ✦&nbsp;</span>
-      </div>
+        <span>Websites ✦ Branding ✦ Logos ✦ Websites ✦ Branding ✦ Logos ✦&nbsp;</span>
+        <span>Websites ✦ Branding ✦ Logos ✦ Websites ✦ Branding ✦ Logos ✦&nbsp;</span>
+        <span>Websites ✦ Branding ✦ Logos ✦ Websites ✦ Branding ✦ Logos ✦&nbsp;</span>
+        <span>Websites ✦ Branding ✦ Logos ✦ Websites ✦ Branding ✦ Logos ✦&nbsp;</span>
+      </div></div>
+      <div class="ribbon r2"><div class="mq rev" aria-hidden="true">
+        <span>Tell us your idea ✦ We sketch it ✦ You love it ✦ Tell us your idea ✦ We sketch it ✦ You love it ✦&nbsp;</span>
+        <span>Tell us your idea ✦ We sketch it ✦ You love it ✦ Tell us your idea ✦ We sketch it ✦ You love it ✦&nbsp;</span>
+        <span>Tell us your idea ✦ We sketch it ✦ You love it ✦ Tell us your idea ✦ We sketch it ✦ You love it ✦&nbsp;</span>
+        <span>Tell us your idea ✦ We sketch it ✦ You love it ✦ Tell us your idea ✦ We sketch it ✦ You love it ✦&nbsp;</span>
+        <span>Tell us your idea ✦ We sketch it ✦ You love it ✦ Tell us your idea ✦ We sketch it ✦ You love it ✦&nbsp;</span>
+        <span>Tell us your idea ✦ We sketch it ✦ You love it ✦ Tell us your idea ✦ We sketch it ✦ You love it ✦&nbsp;</span>
+      </div></div>
     </div>
 
     <!-- 4. Services -->
@@ -244,7 +258,7 @@
         </div>
         <div class="grid work-grid">
           <a href="#" class="work wide reveal" aria-label="[Project name], website, [YEAR]">
-            <div class="work-art art-a" aria-hidden="true"><span>[Project image]</span></div>
+            <div class="work-art art-a" aria-hidden="true"><span>[Project image]</span><em class="jot">next up: you?</em></div>
             <div class="work-meta"><strong>[Project name]</strong><span>[WEBSITE] · [YEAR]</span></div>
           </a>
           <a href="#" class="work reveal" aria-label="[Project name], logo, [YEAR]">
@@ -332,6 +346,14 @@
       <p class="muted">© 2026 OddHours · <span class="hand">made with care</span></p>
     </div>
   </footer>
+
+  <div class="vibe" role="group" aria-label="Try a colour vibe">
+    <span class="vibe-label">try a vibe</span>
+    <button type="button" class="vibe-btn" data-vibe="forest" aria-label="Forest" aria-pressed="true" style="--s1:#C6F24E;--s2:#0A1510"></button>
+    <button type="button" class="vibe-btn" data-vibe="deepsea" aria-label="Deep sea" aria-pressed="false" style="--s1:#3DD6F5;--s2:#07111F"></button>
+    <button type="button" class="vibe-btn" data-vibe="ember" aria-label="Ember" aria-pressed="false" style="--s1:#FFB020;--s2:#14110D"></button>
+    <button type="button" class="vibe-btn" data-vibe="merlot" aria-label="Merlot" aria-pressed="false" style="--s1:#FF6B81;--s2:#150A0E"></button>
+  </div>
 
   <script src="script.js"></script>
 </body>
