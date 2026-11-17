@@ -60,10 +60,11 @@
 
   /* ---------- Hero service picker ---------- */
   var services = [
-    { title: 'Website creation', text: 'Custom, mobile-first websites that are fast and easy to update.', chip: 'Website' },
-    { title: 'Branding', text: 'Colours, type, voice and guidelines so everything feels like one brand.', chip: 'Branding' },
-    { title: 'Logo design', text: 'One distinctive mark that works everywhere, in every file format you need.', chip: 'Logo' }
+    { title: 'Website creation', text: 'Custom, mobile-first websites that are fast and easy to update.', chip: 'Website', price: 'Packages from Rs. 3,000' },
+    { title: 'Branding', text: 'Colours, type, voice and guidelines so everything feels like one brand.', chip: 'Branding', price: 'Pricing: coming soon' },
+    { title: 'Logo design', text: 'One distinctive mark that works everywhere, in every file format you need.', chip: 'Logo', price: 'Pricing: coming soon' }
   ];
+  var pPrice = document.getElementById('preview-price');
   var opts = document.querySelectorAll('.svc-opt');
   var pTitle = document.getElementById('preview-title');
   var pText = document.getElementById('preview-text');
@@ -74,6 +75,7 @@
     opts.forEach(function (o) { o.setAttribute('aria-pressed', String(Number(o.dataset.index) === idx)); });
     pTitle.textContent = s.title;
     pText.textContent = s.text;
+    pPrice.textContent = s.price;
     pArt.setAttribute('data-kind', String(idx));
     pCta.setAttribute('data-service', s.chip);
   }
@@ -88,6 +90,12 @@
     if (!a) return;
     var input = document.querySelector('.chips input[value="' + a.getAttribute('data-service') + '"]');
     if (input) input.checked = true;
+    // Picking a pricing package pre-fills the message (without overwriting anything the visitor typed).
+    var pkg = a.getAttribute('data-package');
+    var msg = document.getElementById('f-msg');
+    if (pkg && msg && (msg.value.trim() === '' || msg.value.indexOf("I'm interested in the ") === 0)) {
+      msg.value = "I'm interested in the " + pkg + " package.";
+    }
   });
 
   /* ---------- Reveal on scroll ---------- */

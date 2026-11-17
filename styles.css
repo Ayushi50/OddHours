@@ -190,6 +190,30 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
 .svc p, .step p { color: var(--mu); }
 .card-foot { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--bd); display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 14px; }
 
+/* Pricing */
+.plans { align-items: stretch; }
+.plan { display: flex; flex-direction: column; gap: 14px; position: relative; }
+.plan h3 { font-size: 22px; font-weight: 800; letter-spacing: -.5px; }
+.price { font-size: 38px; font-weight: 800; letter-spacing: -1.5px; line-height: 1.05; color: var(--acx); }
+.plan-tag { color: var(--mu); font-size: 15px; }
+.ticks { display: flex; flex-direction: column; gap: 10px; padding-top: 16px; margin-bottom: 8px; border-top: 1px solid var(--bd); flex: 1; font-size: 15px; }
+.ticks li { position: relative; padding-left: 26px; }
+.ticks li::before {
+  content: ""; position: absolute; left: 2px; top: .38em; width: 12px; height: 7px;
+  border-left: 2px solid var(--acx); border-bottom: 2px solid var(--acx); transform: rotate(-45deg);
+}
+.btn-ghost { background: transparent; color: var(--tx); border: 1px solid var(--bd); }
+.btn-ghost:hover { border-color: var(--acx); filter: none; }
+.plan-custom { border-color: var(--acx); }
+.plan-custom .price { font-size: 30px; letter-spacing: -1px; padding: 4px 0; }
+.plan-flag {
+  position: absolute; top: -13px; left: 22px;
+  background: var(--ac); color: var(--on); border-radius: 999px; padding: 3px 12px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; font-weight: 500;
+}
+.plans-note { margin-top: 32px; color: var(--mu); text-align: center; }
+.link-inline { color: var(--acx); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
 /* Work */
 .work-grid { grid-template-columns: repeat(3, 1fr); }
 .work {
