@@ -7,7 +7,7 @@
   <meta name="description" content="OddHours is a small freelance design studio making websites, logos and branding for small businesses, startups and individuals.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script>
     // Apply a saved theme before paint to avoid a flash.
@@ -22,7 +22,7 @@
   <header class="nav">
     <div class="nav-in">
       <a href="#top" class="wordmark" aria-label="OddHours home">
-        <span class="dot" aria-hidden="true"></span>OddHours
+        <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><circle class="lm-face" cx="19" cy="21" r="15"/><path class="lm-hand" d="M19 21V11M19 21l7 4"/><circle class="lm-odd" cx="32" cy="8" r="5"/></svg><span class="wm">Odd<span class="hrs">Hours</span></span>
       </a>
       <nav aria-label="Main">
         <ul class="nav-links" id="nav-links">
@@ -50,7 +50,31 @@
     <section class="hero" id="top">
       <div class="in hero-in">
         <p class="eyebrow reveal">Freelance design studio</p>
-        <h1 class="h1 reveal">What do you need made?</h1>
+        <h1 class="h1 reveal">What do you need <span class="scrib">made?</span></h1>
+
+        <div class="collage reveal" aria-hidden="true">
+          <div class="mk mk-site">
+            <div class="mk-bar"><i></i><i></i><i></i><span></span></div>
+            <div class="mk-body">
+              <div class="mk-h"></div><div class="mk-h short"></div>
+              <div class="mk-l"></div><div class="mk-l s"></div>
+              <div class="mk-btn"></div>
+              <div class="mk-blob"></div>
+            </div>
+          </div>
+          <div class="mk mk-logo">
+            <svg class="logo-mark big" viewBox="0 0 40 40"><circle class="lm-face" cx="19" cy="21" r="15"/><path class="lm-hand" d="M19 21V11M19 21l7 4"/><circle class="lm-odd" cx="32" cy="8" r="5"/></svg>
+            <span class="note">your logo</span>
+          </div>
+          <div class="mk mk-brand">
+            <div class="mk-aa">Aa</div>
+            <div class="sw"><i style="background:#0A1510"></i><i style="background:#C6F24E"></i><i style="background:#FF7A59"></i><i style="background:#FFD84D"></i><i style="background:#EFF7EA"></i></div>
+            <span class="note">brand kit</span>
+          </div>
+          <span class="start">start here
+            <svg viewBox="0 0 60 50"><path d="M8 4C6 22 20 34 46 40M46 40l-12-1M46 40l-7-10"/></svg>
+          </span>
+        </div>
 
         <div class="picker reveal">
           <div class="search" aria-hidden="true">
@@ -104,7 +128,7 @@
     <section class="sec" id="services">
       <div class="in">
         <p class="eyebrow reveal">Services</p>
-        <h2 class="h2 reveal">Three things, done properly.</h2>
+        <h2 class="h2 reveal">Three things, done <span class="scrib">properly</span>.</h2>
         <div class="grid g3">
           <article class="card svc reveal">
             <span class="svc-ico lg" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M3 9h18"/></svg></span>
@@ -140,8 +164,8 @@
     <!-- Pricing -->
     <section class="sec" id="pricing">
       <div class="in">
-        <p class="eyebrow reveal">Pricing</p>
-        <h2 class="h2 reveal">Website packages.</h2>
+        <p class="eyebrow reveal">Pricing <span class="sticker">No surprises!</span></p>
+        <h2 class="h2 reveal">Website <span class="scrib">packages</span>.</h2>
         <p class="lead reveal">Every project follows the same path: design first, feedback next, development last. What changes is how many designs you see, how much flexibility you have and when building begins.</p>
 
         <div class="grid g4 plans">
@@ -155,6 +179,7 @@
               <li>1 round of feedback and corrections</li>
               <li>Design is finalised before we build</li>
             </ul>
+            <p class="think"><b>Think of it like:</b>Ordering a ready-made outfit and asking the tailor for one round of alterations.</p>
             <a href="#contact" class="btn btn-ghost" data-service="Website" data-package="Basic">Choose Basic</a>
           </article>
 
@@ -167,6 +192,7 @@
               <li>We build the full site once you approve it</li>
               <li>Several changes welcome while we build</li>
             </ul>
+            <p class="think"><b>Think of it like:</b>Approving a paint sample on one wall before the painters cover the whole house.</p>
             <a href="#contact" class="btn btn-ghost" data-service="Website" data-package="Standard">Choose Standard</a>
           </article>
 
@@ -180,11 +206,12 @@
               <li>Building starts once the design is reasonably aligned</li>
               <li>Fine-tuning continues during development</li>
             </ul>
+            <p class="think"><b>Think of it like:</b>Approving blueprints that are close to final. Building begins, and the finishing touches get decided as it goes up.</p>
             <a href="#contact" class="btn btn-ghost" data-service="Website" data-package="Premium">Choose Premium</a>
           </article>
 
           <article class="card plan plan-custom reveal">
-            <span class="plan-flag">Most comprehensive</span>
+            <span class="plan-flag sticker">Most comprehensive</span>
             <h3>Custom</h3>
             <p class="price">Tailored quote</p>
             <p class="plan-tag">Built around you, with a fully managed, end-to-end experience.</p>
@@ -196,6 +223,7 @@
               <li>Custom app development and advanced integrations</li>
               <li>Extended post-launch support</li>
             </ul>
+            <p class="think"><b>Think of it like:</b>Building a fully custom home instead of choosing a model home.</p>
             <a href="#contact" class="btn" data-service="Website" data-package="Custom">Request a quote</a>
           </article>
         </div>
@@ -210,7 +238,7 @@
         <div class="sec-head">
           <div>
             <p class="eyebrow reveal">Work</p>
-            <h2 class="h2 reveal">Recent projects.</h2>
+            <h2 class="h2 reveal">Recent <span class="scrib">projects</span>.</h2>
           </div>
           <a href="#contact" class="link reveal">Want to be next? <span aria-hidden="true">→</span></a>
         </div>
@@ -239,7 +267,7 @@
     <section class="sec" id="process">
       <div class="in">
         <p class="eyebrow reveal">How it works</p>
-        <h2 class="h2 reveal">Simple from start to finish.</h2>
+        <h2 class="h2 reveal">Simple from start to <span class="scrib">finish</span>.</h2>
         <p class="lead reveal">Design first, feedback next, development last. Every project follows this path, whichever package you pick.</p>
         <ol class="grid g4 steps" role="list">
           <li class="card step reveal"><span class="num">01</span><h3>Brief</h3><p>You tell us what you need and share your logo if you have one. We agree scope and price.</p></li>
@@ -254,8 +282,8 @@
     <section class="sec" id="contact">
       <div class="in contact">
         <div class="contact-copy">
-          <p class="eyebrow reveal">Contact</p>
-          <h2 class="h2 reveal">Have a project in mind?</h2>
+          <p class="eyebrow reveal">Contact <span class="sticker">No pressure</span></p>
+          <h2 class="h2 reveal">Have a <span class="scrib">project</span> in mind?</h2>
           <p class="lead reveal">Tell us what you need and we'll get back to you with next steps.</p>
           <p class="reveal"><span class="label">Email</span><br><a class="mail" href="mailto:ayushipandey316@gmail.com">ayushipandey316@gmail.com</a></p>
         </div>
@@ -292,7 +320,7 @@
   <!-- 8. Footer -->
   <footer class="footer">
     <div class="in footer-in">
-      <a href="#top" class="wordmark"><span class="dot" aria-hidden="true"></span>OddHours</a>
+      <a href="#top" class="wordmark"><svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><circle class="lm-face" cx="19" cy="21" r="15"/><path class="lm-hand" d="M19 21V11M19 21l7 4"/><circle class="lm-odd" cx="32" cy="8" r="5"/></svg><span class="wm">Odd<span class="hrs">Hours</span></span></a>
       <nav aria-label="Footer">
         <ul class="foot-links">
           <li><a href="#services">Services</a></li>
@@ -301,7 +329,7 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
-      <p class="muted">© 2026 OddHours</p>
+      <p class="muted">© 2026 OddHours · <span class="hand">made with care</span></p>
     </div>
   </footer>
 
